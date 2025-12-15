@@ -1,55 +1,86 @@
-# Turbulent Brushstrokes
+# Turbulent Brushstrokes — Categorical Van Gogh
 
-A generative art piece for museum projection, inspired by Van Gogh's brushwork patterns and the Kolmogorov turbulence research on *Starry Night*.
+A generative art piece for museum projection using **authentic Van Gogh brushwork patterns** per artistic period, with **Kolmogorov turbulence modeling** for The Starry Night.
+
+## Scientific Basis
+
+This visualization is grounded in peer-reviewed research:
+
+- **Aragon et al.** - "Turbulent Luminance in Impassioned van Gogh Paintings" (2006)
+- **Kolmogorov's -5/3 power law** for turbulent energy cascade across eddy scales
+- **Batchelor scaling** for small-scale mixing in turbulent flows
+
+The Starry Night period recreates the **14 main eddies** identified in the painting, with energy distribution following the mathematical `-5/3` exponent that Van Gogh intuitively captured decades before Kolmogorov formalized turbulence theory.
+
+## Authentic Brushstroke Techniques
+
+Each period uses historically accurate rendering:
+
+| Period | Technique | Visual Rendering |
+|--------|-----------|------------------|
+| **Nuenen (1885)** | Heavy impasto | Short, thick rectangular dabs with highlight ridges |
+| **Paris (1886-87)** | Pointillism | Circular dots with complementary color neighbors |
+| **Arles (1888)** | Directional impasto | Long parallel strokes, square-capped, bold flow |
+| **Starry Night (1889)** | Turbulent swirls | Curved strokes around 14 multi-scale eddies |
+| **Almond Blossoms (1890)** | Japanese curves | Smooth, flowing bezier-like strokes |
 
 ## Running the Visualization
 
-Simply open `index.html` in a modern web browser, or serve it locally:
-
 ```bash
-# Using Python
+cd viz
 python -m http.server 8000
-
-# Using Node.js
-npx serve .
+# Open http://localhost:8000
 ```
 
-Then open `http://localhost:8000` in your browser.
+Or use any local server (Node's `npx serve .`, VS Code Live Server, etc.)
 
 ## Controls
 
 | Key | Action |
 |-----|--------|
-| `1` | The Potato Eaters (Nuenen, 1885) |
-| `2` | Impressionist Light (Paris, 1886-87) |
-| `3` | Sunflowers (Arles, 1888) |
-| `4` | Starry Night (Saint-Rémy, 1889) |
-| `5` | Almond Blossoms (Saint-Rémy, 1890) |
+| `1` | The Potato Eaters (Nuenen, 1885) — Heavy impasto |
+| `2` | Neo-Impressionist Light (Paris, 1886-87) — Pointillist dots |
+| `3` | Sunflowers (Arles, 1888) — Directional strokes |
+| `4` | The Starry Night (Saint-Rémy, 1889) — Kolmogorov turbulence |
+| `5` | Almond Blossoms (Saint-Rémy, 1890) — Japanese curves |
 | `SPACE` | Pause/Resume |
-| `R` | Reset particles |
+| `R` | Reset particles and eddies |
 | `F` | Toggle fullscreen |
 | `H` | Hide/show info overlay |
 
 ## Museum Projection Notes
 
-- Press `F` for fullscreen mode
-- Press `H` to hide the info overlay for clean projection
-- The visualization auto-cycles through all 5 periods (30 seconds each)
-- Mouse movement subtly influences nearby particles
+- Press `F` for fullscreen, `H` to hide overlay for clean projection
+- Auto-cycles through all 5 periods (35 seconds each)
+- In Starry Night mode, mouse movement creates interactive swirls
+- The visualization responds to screen size — works on any aspect ratio
 
-## Color Palettes
+## Technical Implementation
 
-Each period uses authentic colors sampled from Van Gogh's paintings:
+### Kolmogorov Turbulence Model
 
-1. **Nuenen (1885)** — Dark earth tones, shadows
-2. **Paris (1886-87)** — Soft pastels, impressionist influence
-3. **Arles (1888)** — Vibrant yellows and cobalt blues
-4. **Starry Night (1889)** — Deep blues with yellow stars, maximum turbulence
-5. **Almond Blossoms (1890)** — Serene blues and white blossoms
+The Starry Night period implements:
 
-## Technical Details
+```
+E(k) ∝ k^(-5/3)  — Energy distribution across eddy scales
+```
 
-- **Flow field**: Multi-octave Perlin noise with spiral patterns
-- **Turbulence**: Each period has different turbulence intensity
-- **Particles**: 2000 particles leave brushstroke trails
-- **Transitions**: Smooth color blending between periods
+- **14 eddies** at multiple scales (large sky swirls → small detail eddies)
+- Larger eddies contain more energy (inverse power law)
+- Eddies pulse and drift over time
+- Particle paths follow weighted sum of all eddy influences
+
+### Period-Specific Flow Fields
+
+- **Impasto**: Blocky, chunky noise with slow evolution
+- **Pointillist**: Jittery, semi-random for stippled effect
+- **Directional**: Strong dominant angle with radiating center (sunflower)
+- **Turbulent**: Multi-scale eddy superposition
+- **Flowing**: Smooth noise with wave patterns and upward bias
+
+## References
+
+- [Nature News: Van Gogh painted perfect turbulence](https://www.nature.com/news/2006/060703/full/news060703-17.html)
+- [Hidden turbulence in van Gogh's The Starry Night (2024)](https://pubs.aip.org/aip/pof/article/36/9/095140/3312767/Hidden-turbulence-in-van-Gogh-s-The-Starry-Night)
+- [Draw Paint Academy: Van Gogh Techniques](https://drawpaintacademy.com/vincent-van-gogh-techniques/)
+- [Van Gogh Studio: Impasto Technique](https://www.vangoghstudio.com/did-van-gogh-use-impasto/)
